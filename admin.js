@@ -1,60 +1,37 @@
-const ADMIN_PASSWORD = "12345";
-let quizQuestions = [];
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h2>Admin Panel</h2>
+    <input type="email" id="admin-email" placeholder="Admin Email">
+    <input type="password" id="admin-password" placeholder="Password">
+    <button id="login-btn">Login</button>
 
-function login() {
-    const password = document.getElementById('admin-password').value;
-    if (password === ADMIN_PASSWORD) {
-        document.getElementById('login-section').style.display = 'none';
-        document.getElementById('admin-section').style.display = 'block';
-        loadTodayQuiz();
-    } else {
-        alert("Wrong password!");
-    }
-}
+    <div id="admin-section" style="display:none;">
+        <h3>Add Quiz</h3>
+        <input type="text" id="quiz-question" placeholder="Question">
+        <input type="text" id="quiz-option1" placeholder="Option 1">
+        <input type="text" id="quiz-option2" placeholder="Option 2">
+        <input type="text" id="quiz-option3" placeholder="Option 3">
+        <input type="text" id="quiz-option4" placeholder="Option 4">
+        <input type="number" id="quiz-correct" placeholder="Correct Option (1-4)">
+        <button id="add-quiz-btn">Add Quiz</button>
+    </div>
 
-function addQuestion() {
-    const question = document.getElementById('question').value;
-    const options = [
-        document.getElementById('opt1').value,
-        document.getElementById('opt2').value,
-        document.getElementById('opt3').value,
-        document.getElementById('opt4').value
-    ];
-    const answer = parseInt(document.getElementById('answer').value);
-    if (question && options.every(o => o) && !isNaN(answer)) {
-        quizQuestions.push({ question, options, answer });
-        displayQuizList();
-        clearForm();
-    } else {
-        alert("Please fill all fields!");
-    }
-}
+    <!-- Firebase Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
 
-function clearForm() {
-    document.getElementById('question').value = '';
-    document.getElementById('opt1').value = '';
-    document.getElementById('opt2').value = '';
-    document.getElementById('opt3').value = '';
-    document.getElementById('opt4').value = '';
-    document.getElementById('answer').value = '';
-}
+    <!-- Firebase Config -->
+    <script src="firebase-config.js"></script>
 
-function displayQuizList() {
-    const quizList = document.getElementById('quiz-list');
-    quizList.innerHTML = quizQuestions.map((q, i) => `<li>${i+1}. ${q.question}</li>`).join('');
-}
-
-function saveQuiz() {
-    const today = new Date().toISOString().split('T')[0];
-    localStorage.setItem(`quiz_${today}`, JSON.stringify(quizQuestions));
-    alert("Quiz saved successfully!");
-}
-
-function loadTodayQuiz() {
-    const today = new Date().toISOString().split('T')[0];
-    const savedQuiz = localStorage.getItem(`quiz_${today}`);
-    if (savedQuiz) {
-        quizQuestions = JSON.parse(savedQuiz);
-        displayQuizList();
-    }
-}
+    <!-- Admin Logic -->
+    <script src="admin.js"></script>
+</body>
+</html>
