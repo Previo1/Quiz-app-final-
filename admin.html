@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Panel - Hamster Quiz</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1>🛠 Admin Panel</h1>
+    <div id="login-section">
+        <input type="password" id="admin-password" placeholder="Enter Admin Password">
+        <button onclick="login()">Login</button>
+    </div>
+    <div id="admin-section" style="display:none;">
+        <h2>Add New Quiz</h2>
+        <input type="text" id="question" placeholder="Question"><br>
+        <input type="text" id="opt1" placeholder="Option 1"><br>
+        <input type="text" id="opt2" placeholder="Option 2"><br>
+        <input type="text" id="opt3" placeholder="Option 3"><br>
+        <input type="text" id="opt4" placeholder="Option 4"><br>
+        <input type="number" id="answer" placeholder="Correct Option (0-3)"><br>
+        <button onclick="addQuestion()">Add Question</button>
+        <button onclick="saveQuiz()">Save Quiz</button>
+        <h3>Today's Quiz</h3>
+        <ul id="quiz-list"></ul>
+    </div>
+    <script src="admin.js"></script>
+</body>
+</html>
